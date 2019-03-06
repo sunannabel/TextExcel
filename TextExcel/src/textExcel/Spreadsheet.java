@@ -1,32 +1,35 @@
-package textExcel;
+// @author Annabel Sun
 
-// Update this file with your own code.
+package textExcel;
 
 public class Spreadsheet implements Grid
 {
 
+	public Spreadsheet() {
+		
+	}
+	
+	
 	@Override
-	public String processCommand(String command)
-	{
-		// TODO Auto-generated method stub
-		return null;
+	// processes a user command, returns string to display, must be called in loop from main
+	public String processCommand(String command) {
+		return "";
 	}
 
 	@Override
-	public int getRows()
-	{
-		// TODO Auto-generated method stub
-		return 0;
+	// returns number of rows in grid
+	public int getRows() {
+		return 20; //number of rows
 	}
 
 	@Override
-	public int getCols()
-	{
-		// TODO Auto-generated method stub
-		return 0;
+	// returns number of columns in grid
+	public int getCols() {
+		return 12; //number of columns
 	}
 
 	@Override
+	// returns cell at loc
 	public Cell getCell(Location loc)
 	{
 		// TODO Auto-generated method stub
@@ -34,6 +37,7 @@ public class Spreadsheet implements Grid
 	}
 
 	@Override
+	// returns entire grid, formatted as text for display
 	public String getGridText()
 	{
 		// TODO Auto-generated method stub
