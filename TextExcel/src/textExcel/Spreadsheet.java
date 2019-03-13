@@ -2,11 +2,16 @@
 
 package textExcel;
 
-public class Spreadsheet implements Grid
-{
+public class Spreadsheet implements Grid {
 
+	private Cell[][] sheet;
+	private int numColumns;
+	private int numRows;
+	
 	public Spreadsheet() {
-		
+		numRows = 20;
+		numColumns = 12;
+		sheet = new EmptyCell[numColumns][numRows];
 	}
 	
 	
@@ -19,13 +24,13 @@ public class Spreadsheet implements Grid
 	@Override
 	// returns number of rows in grid
 	public int getRows() {
-		return 20; //number of rows
+		return numRows; //number of rows
 	}
 
 	@Override
 	// returns number of columns in grid
 	public int getCols() {
-		return 12; //number of columns
+		return numColumns; //number of columns
 	}
 
 	@Override

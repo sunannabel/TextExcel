@@ -2,14 +2,15 @@
 
 package textExcel;
 
-public class SpreadsheetLocation implements Location {
+public class SpreadsheetLocation implements Location { 
 	
 	private int row;
 	private int column; 
 	
     public SpreadsheetLocation(String cellName) {
-        cellname.charAt(0)
-    	
+        cellName = cellName.toUpperCase();
+    	column = (cellName.charAt(0) - 65);
+    	row = Integer.parseInt(cellName.substring(1))-1;
     }
 	
 	
