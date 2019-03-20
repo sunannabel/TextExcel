@@ -37,15 +37,14 @@ public class Spreadsheet implements Grid {
 	// returns cell at loc
 	public Cell getCell(Location loc)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return sheet[loc.getRow()][loc.getCol()];
 	}
 
 	@Override
 	// returns entire grid, formatted as text for display
 	public String getGridText()
 	{
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
