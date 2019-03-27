@@ -9,15 +9,29 @@ public class Spreadsheet implements Grid {
 	private int numRows;
 	
 	public Spreadsheet() {
-		numRows = 20;
 		numColumns = 12;
-		sheet = new EmptyCell[numColumns][numRows];
+		numRows = 20;
+		sheet = new Cell[numColumns][numRows];
+		for (int i = 0; i < numColumns; i++) {
+			for (int j = 0; j < numRows; j++) {
+				sheet[i][j] = new EmptyCell();
+			}
+		}
 	}
 	
 	
 	@Override
 	// processes a user command, returns string to display, must be called in loop from main
 	public String processCommand(String command) {
+		if (command.length() <= 3) {
+			//filler
+		} else if (command.contains("=")) {
+			String[] splitCommand = command.split(" ");
+		} else if (command.equals("clear")) {
+			//filler
+		} else if (command.contains("clear")) {
+			//filler
+		}
 		return "";
 	}
 
