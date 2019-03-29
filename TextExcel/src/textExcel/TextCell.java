@@ -5,11 +5,14 @@ public class TextCell implements Cell{
 	private String abbreviatedText;
 	
 	public TextCell(String text) {
-		fullText = text;
-		if(text.length() < 10) {
-			abbreviatedText = text;
+		fullText = text.substring(1, text.length()-1);
+		if(fullText.length() < 10) {
+			abbreviatedText = fullText;
+			for(int i = fullText.length(); i < 10; i++) {
+				abbreviatedText = abbreviatedText + " ";
+			}
 		} else {
-			abbreviatedText = text.substring(0, 10);
+			abbreviatedText = fullText.substring(0, 10);
 		}
 	}
 	

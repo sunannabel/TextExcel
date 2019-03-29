@@ -15,13 +15,16 @@ public class TextExcel {
 		boolean done = false;
     	Scanner userInput = new Scanner(System.in);
     	Spreadsheet sheet = new Spreadsheet();
+    	
+//    	System.out.println(sheet.getGridText());
+    	
     	while (!done) {
     		System.out.print("Enter a command: ");
     		String input = userInput.nextLine();
     		if (input.equals("quit")) {
     			done = true;
     		} else {
-    			sheet.processCommand(input);
+    			System.out.println(sheet.processCommand(input));
     		} 
     	}	
     	userInput.close();
