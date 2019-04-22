@@ -12,11 +12,7 @@ public class Spreadsheet implements Grid {
 		numColumns = 12;
 		numRows = 20;
 		sheet = new Cell[numColumns][numRows];
-		for (int i = 0; i < numColumns; i++) {
-			for (int j = 0; j < numRows; j++) {
-				sheet[i][j] = new EmptyCell();
-			}
-		}
+		sheet = clearSheet(numColumns, numRows, sheet);
 	}
 	
 	
@@ -41,14 +37,9 @@ public class Spreadsheet implements Grid {
 			
 			//if clear entire sheet
 			if (command.length() == 5) {
-				for (int i = 0; i < numColumns; i++) {
-					for (int j = 0; j < numRows; j++) {
-						sheet[i][j] = new EmptyCell();
-					}
-				}
-			return getGridText();
-
-				
+				sheet = clearSheet(numColumns, numRows, sheet);
+				return getGridText();
+	
 			//if clear specific cell
 			} else {
 				String[] splitCommand = command.split(" ");
@@ -74,15 +65,13 @@ public class Spreadsheet implements Grid {
 
 	@Override
 	// returns cell at loc
-	public Cell getCell(Location loc)
-	{
+	public Cell getCell(Location loc) {
 		return sheet[loc.getCol()][loc.getRow()];
 	}
 
 	@Override
 	// returns entire grid, formatted as text for display
-	public String getGridText()
-	{
+	public String getGridText() {
 		String fullGrid = "   |";
 		
 		//header
@@ -111,6 +100,15 @@ public class Spreadsheet implements Grid {
 		}
 		
 		return fullGrid;
+	}
+	
+	private Cell[][] clearSheet(int numColumns, int numRows, Cell[][] sheet) {
+		for (int i = 0; i < numColumns; i++) {
+			for (int j = 0; j < numRows; j++) {
+				sheet[i][j] = new EmptyCell();
+			}
+		}
+		return sheet;
 	}
 
 }

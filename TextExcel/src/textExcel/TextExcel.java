@@ -8,16 +8,11 @@ import java.util.Scanner;
 public class TextExcel {
 
 	public static void main(String[] args) {
-    	
-//		TestsALL.Helper th = new TestsALL.Helper();
-//		System.out.println(th.getText());	
 		
 		boolean done = false;
     	Scanner userInput = new Scanner(System.in);
     	Spreadsheet sheet = new Spreadsheet();
-    	
-//    	System.out.println(sheet.getGridText());
-    	
+    	    	
     	while (!done) {
     		System.out.print("Enter a command: ");
     		String input = userInput.nextLine();
