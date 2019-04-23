@@ -5,14 +5,14 @@ public class TextCell implements Cell{
 	private String abbreviatedText;
 	
 	public TextCell(String text) {
-		fullText = text.substring(1, text.length()-1);
-		if(fullText.length() < 10) {
-			abbreviatedText = fullText;
-			for(int i = fullText.length(); i < 10; i++) {
+		fullText = text;
+		if(fullText.length() < 12) { //10 characters + 2 quotes
+			abbreviatedText = text.substring(1, text.length()-1);
+			for(int i = fullText.length(); i < 12; i++) {
 				abbreviatedText = abbreviatedText + " ";
 			}
 		} else {
-			abbreviatedText = fullText.substring(0, 10);
+			abbreviatedText = fullText.substring(1, 11);
 		}
 	}
 	
@@ -23,6 +23,6 @@ public class TextCell implements Cell{
 	
 	// text for individual cell inspection, not truncated or padded
 	public String fullCellText() {
-		return ("\"" + fullText + "\"");
+		return (fullText);
 	}
 }

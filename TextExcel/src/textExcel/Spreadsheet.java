@@ -28,7 +28,22 @@ public class Spreadsheet implements Grid {
 		} else if (command.contains("=")) {
 			String[] splitCommand = command.split(" ",3);
 			SpreadsheetLocation loc = new SpreadsheetLocation(splitCommand[0]);
-			sheet[loc.getCol()][loc.getRow()] = new TextCell(splitCommand[2]);
+			
+			if (splitCommand[2].startsWith("\"")) {	//if string (starts with quotes)
+				sheet[loc.getCol()][loc.getRow()] = new TextCell(splitCommand[2]);
+				
+			} else if (splitCommand[2].contains("%")) {	//else if percent (includes % sign)
+				sheet[loc.getCol()][loc.getRow()] = new PercentCell(splitCommand[2]);
+				
+			} else if (splitCommand[2].startsWith("(")) { //else if formula (starts w/ parenthesis)
+				sheet[loc.getCol()][loc.getRow()] = new FormulaCell(splitCommand[2]);
+				
+			} else {
+				sheet[loc.getCol()][loc.getRow()] = new ValueCell(splitCommand[2]);
+				
+			}
+			
+				
 			return getGridText();
 
 			
