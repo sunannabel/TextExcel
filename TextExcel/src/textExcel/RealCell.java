@@ -3,32 +3,38 @@ package textExcel;
 public class RealCell implements Cell {
 	/* contain a field that stores the string representing what the user entered (fullCellText)
 	 * make a getDoubleValue() that returns calculated value as a double
-	 * ValueCell, PercentCell, and FormulaCell extend ReaCell
+	 * ValueCell, PercentCell, and FormulaCell extend RealCell
 	 */
 	
-	private String fullText;
-	private String abbreviatedText;
+	private String inputText;
 	
 	public RealCell(String input) {
-		fullText = input;
-		abbreviatedText = input.substring(0, 10);
+		inputText = input;
 	}
 	
-	
+	// text for spreadsheet cell display, must be exactly length 10
 	public String abbreviatedCellText() {
-		// text for spreadsheet cell display, must be exactly length 10
-		// OVERRIDE IN SUBCLASSES
-		return abbreviatedText;
+		return padAbbreviatedText(inputText);
 	}
 	
+	// text for individual cell inspection, not truncated or padded
 	public String fullCellText() {
-		// text for individual cell inspection, not truncated or padded
-		return fullText;
+		return inputText;
 	}
 
 	public double getDoubleValue() {
-		// OVERRIDE IN SUBCLASSES
 		return 0.0;
 	}
-	
+
+	//helper 
+	public String padAbbreviatedText(String text) {
+		if (text.length() < 10) {
+			for(int i = text.length(); i < 10; i++) {
+				text += " ";
+			}
+		} else {
+			text = text.substring(0, 10);
+		}
+		return text;
+	}
 }

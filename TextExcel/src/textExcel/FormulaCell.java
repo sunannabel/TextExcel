@@ -6,4 +6,9 @@ public class FormulaCell extends RealCell {
 		super(input);
 	}
 	
+	// text for spreadsheet cell display, must be exactly length 10
+	public String abbreviatedCellText() {
+		return "formula   ";
+	}
+	
 }
