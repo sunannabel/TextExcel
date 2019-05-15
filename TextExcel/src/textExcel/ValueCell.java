@@ -6,11 +6,6 @@ public class ValueCell extends RealCell{
 		super(input);
 	}
 
-	// text for spreadsheet cell display, must be exactly length 10
-	public String abbreviatedCellText() {
-		return padAbbreviatedText(getDoubleValue() + "");
-	}	
-	
 	public double getDoubleValue() {
 		//returns calculated value of double as a string
 		return Double.parseDouble(super.fullCellText());
