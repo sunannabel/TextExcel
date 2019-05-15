@@ -36,7 +36,7 @@ public class Spreadsheet implements Grid {
 				sheet[loc.getCol()][loc.getRow()] = new PercentCell(splitCommand[2]);
 				
 			} else if (splitCommand[2].startsWith("(")) { //else if formula (starts w/ parenthesis)
-				sheet[loc.getCol()][loc.getRow()] = new FormulaCell(splitCommand[2]);
+				sheet[loc.getCol()][loc.getRow()] = new FormulaCell(splitCommand[2], this);
 				
 			} else {
 				sheet[loc.getCol()][loc.getRow()] = new ValueCell(splitCommand[2]);

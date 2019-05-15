@@ -13,7 +13,11 @@ public class SpreadsheetLocation implements Location {
     	row = Integer.parseInt(cellName.substring(1))-1;
     }
 	
-	
+	public SpreadsheetLocation(int column, int row) {
+		this.column = column;
+		this.row = row;
+	}
+    
 	@Override
     // gets row of this location
     public int getRow() {

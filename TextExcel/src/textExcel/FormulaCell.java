@@ -2,32 +2,58 @@ package textExcel;
 
 public class FormulaCell extends RealCell {
 	
-	public FormulaCell(String input) {
-		super(input);
-	}
+	private Spreadsheet sheet;
 	
+	public FormulaCell(String input, Spreadsheet sheet) {
+		super(input);
+		this.sheet = sheet;
+	}
+
+
 	public double getDoubleValue() {
 		String[] formulaSplit = fullCellText().split(" ");
-		if (formulaSplit[1].equals("SUM")) {
-			//filler 
-		} else if (formulaSplit[1].equals("AVG")) {
-			//filler
+		if (formulaSplit[1].equals("SUM") || formulaSplit[1].equals("AVG")) {
+			double sum = 0; //keeps track of total sum
+			String[] splitSum = formulaSplit[2].split("-"); //split into two locations
+			SpreadsheetLocation loc1 = new SpreadsheetLocation(splitSum[0]);
+			SpreadsheetLocation loc2 = new SpreadsheetLocation(splitSum[1]);
+			
+			int colRange = absValue(loc1.getCol() - loc2.getCol());
+			int rowRange = absValue(loc1.getRow() - loc2.getRow());
+			
+			for(int cols = 0; cols <= colRange; cols++){ //iterate through columns
+				for (int rows = 0; rows <= rowRange; rows++) { //iterate through rows
+					SpreadsheetLocation loc3 = new SpreadsheetLocation(cols, rows); //make a location for current cols / rows
+					sum += ((RealCell) sheet.getCell(loc3)).getDoubleValue(); //get double value at current cell, add to sum
+				}
+			}
+			
+			if (formulaSplit[1].equals("SUM")) {
+				return sum;
+			} else {
+				return sum / (colRange * rowRange);
+			}
+			//again: if this works i will cry
+
 		} else {
 			for (int i = 1; i < formulaSplit.length - 2; i += 2) {
-				double val1 = Double.parseDouble(formulaSplit[i]);
+				double val1 = parse(formulaSplit[i]);
 				String op = formulaSplit[i+1];
-				double val2 = Double.parseDouble(formulaSplit[i+2]);
+				double val2 = parse(formulaSplit[i+2]);
 				
 				formulaSplit[i+2] = eval(val1, op, val2);
 			}
+			return Double.parseDouble(formulaSplit[formulaSplit.length-2]);
 		}
 		
-		return Double.parseDouble(formulaSplit[formulaSplit.length-2]);
 	}
 	
-	public double parse(String str, Spreadsheet sheet) {
+	public double parse(String str) {
 		if (str.charAt(0) > 64) { //should check if char is a letter? maybe?
-			return (Double.parseDouble(sheet.processCommand(str))); //THIS PROBABLY WON'T WORK FIX IT
+			SpreadsheetLocation loc = new SpreadsheetLocation(str);
+			return (((RealCell) sheet.getCell(loc)).getDoubleValue()); //access the cell, gets the double value, the cast is bc we know it'll be a realcell aaAA
+			//if this code works i will cry
+		
 		} else {
 			return Double.parseDouble(str);
 		}
@@ -47,6 +73,15 @@ public class FormulaCell extends RealCell {
 			
 		} else {
 			return (val1 / val2) + "";
+		}
+	}
+	
+	//helper
+	private int absValue (int number) {
+		if (number < 0) {
+			return number * -1;
+		} else {
+			return number;
 		}
 	}
 	
