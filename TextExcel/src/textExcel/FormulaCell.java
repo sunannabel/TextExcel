@@ -12,26 +12,25 @@ public class FormulaCell extends RealCell {
 
 	public double getDoubleValue() {
 		String[] formulaSplit = fullCellText().split(" ");
-		if (formulaSplit[1].equals("SUM") || formulaSplit[1].equals("AVG")) {
+		if (formulaSplit[1].equalsIgnoreCase("SUM") || formulaSplit[1].equalsIgnoreCase("AVG")) {
 			double sum = 0; //keeps track of total sum
 			String[] splitSum = formulaSplit[2].split("-"); //split into two locations
 			SpreadsheetLocation loc1 = new SpreadsheetLocation(splitSum[0]);
 			SpreadsheetLocation loc2 = new SpreadsheetLocation(splitSum[1]);
 			
-			int colRange = absValue(loc1.getCol() - loc2.getCol());
-			int rowRange = absValue(loc1.getRow() - loc2.getRow());
-			
-			for(int cols = 0; cols <= colRange; cols++){ //iterate through columns
-				for (int rows = 0; rows <= rowRange; rows++) { //iterate through rows
+			for(int cols = loc1.getCol(); cols <= loc2.getCol(); cols++){ //iterate through columns
+				for (int rows = loc1.getRow(); rows <= loc2.getRow(); rows++) { //iterate through rows
 					SpreadsheetLocation loc3 = new SpreadsheetLocation(cols, rows); //make a location for current cols / rows
 					sum += ((RealCell) sheet.getCell(loc3)).getDoubleValue(); //get double value at current cell, add to sum
 				}
 			}
 			
-			if (formulaSplit[1].equals("SUM")) {
+			if (formulaSplit[1].equalsIgnoreCase("SUM")) {
 				return sum;
 			} else {
-				return sum / (colRange * rowRange);
+				int colRange = loc2.getCol() - loc1.getCol();
+				int rowRange = loc2.getRow() - loc1.getRow();
+				return (sum / ((colRange+1) * (rowRange+1)));
 			}
 			//again: if this works i will cry
 
